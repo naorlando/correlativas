@@ -14,6 +14,8 @@ public class InscripcionTest {
         Materia algoritmos = new Materia(1,"Algoritmos y Estructuras de Datos", new ArrayList<>());
         Materia paradigmas = new Materia(2,"Paradigmas de Programación", List.of(algoritmos));
         Materia disenoSist = new Materia(3,"Diseño de Sistemas", List.of(paradigmas));
+        Materia analisis1 = new Materia(4,"Analisis Matematico 1",new ArrayList<>());
+        Materia analisis2 = new Materia(5,"Analisis Matematico 2", List.of(analisis1));
 
 
 
@@ -22,17 +24,29 @@ public class InscripcionTest {
 
         nahuel.agregarMateriaAprobada(algoritmos);
         nahuel.agregarMateriaAprobada(paradigmas);
+        nahuel.agregarMateriaAprobada(analisis1);
+
+        juan.agregarMateriaAprobada(analisis1);
         juan.agregarMateriaAprobada(algoritmos);
 
-        Inscripcion inscripcion = new Inscripcion(nahuel,disenoSist);
-        Inscripcion inscripcion1 = new Inscripcion(juan,disenoSist);
+        Inscripcion inscripcion = new Inscripcion(nahuel);
+
+        inscripcion.agregarMateria(disenoSist);
+        inscripcion.agregarMateria(analisis2);
+
+        Inscripcion inscripcion1 = new Inscripcion(juan);
+
+        inscripcion1.agregarMateria(analisis2);
+        inscripcion1.agregarMateria(disenoSist);
 
 
         //TESTEO NAHUEL SI CUMPLE CON LAS CORRELATIVAS
         Assert.assertTrue(inscripcion.aprobada());
 
-        //TESTEO JUAN NO CUMPLE CON LAS CORRELATIVAS
+        //TESTEO QUE JUAN NO CUMPLE CON LAS CORRELATIVAS
         Assert.assertFalse(inscripcion1.aprobada());
+
+
 
     }
 }

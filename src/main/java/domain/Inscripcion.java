@@ -1,16 +1,28 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Inscripcion {
     private Alumno alumno;
-    private Materia materia;
+    private List<Materia> materias;
 
 
-    public Inscripcion(Alumno alumno, Materia materia) {
+    public Inscripcion(Alumno alumno) {
         this.alumno = alumno;
-        this.materia = materia;
+        this.materias = new ArrayList<>();
     }
 
-    public boolean aprobada(){
-        return alumno.getMateriasAprobadas().containsAll(materia.getCorrelativas());
+    public void agregarMateria(Materia materia){
+        this.materias.add(materia);
+    }
+
+    public boolean aprobada() {
+        for (Materia materia : materias) {
+            if (!alumno.getMateriasAprobadas().containsAll(materia.getCorrelativas())) {
+                return false;
+            }
+        }
+        return true;
     }
 }
